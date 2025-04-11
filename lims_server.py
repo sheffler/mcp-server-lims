@@ -167,8 +167,6 @@ async def analyzer_tool(preparation_list: List[PreparationResult]) -> List[Analy
 
         logger.info(f"Analyzed Sample: {analysis}")
 
-        logger.info(f"Analyzed Sample: {analysis}")
-
         analyses.append(analysis)
         await asyncio.sleep(1)
 
