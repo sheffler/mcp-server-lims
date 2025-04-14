@@ -10,7 +10,7 @@ This repository hosts the MCP Server code that was presented in the video of the
 
 The goal of the LIMS (Laboratory Information Management System) example is for an AI Agent to manage the data associated with a collection of samples as they pass through a laboratory workflow.
 
-The synthetic workflow here is a simplified version of something that you might find in a lab,  but with many details omitted.  In the workflow, there is the passing of physical samples between instruments that process or analyze them.  There is also the data flow associated with the tracking of the samples as they enter an instrument and after they are processed.
+The synthetic workflow here is a simplified version of something that you might find in a lab, but with many details omitted.  In the workflow, there is the passing of physical samples between instruments that process or analyze them.  There is also the data flow associated with the tracking of the samples as they enter an instrument and after they are processed.
 
 The Workflow figure below presents a schematic illustrating the steps of the workflow and the data that must be managed.   Data is illustrated as a table with one entry for each sample at each step.
 
@@ -26,7 +26,7 @@ Now that the samples are registered in the system, they may be processed by the 
 1. the prepared samples in a collection of output tubes
 2. data about each of the samples and how it was prepared
 
-In our simulated preparation step, each sample is processed to attach a genetic tag ("actg", "acac", etc.) to the samples in the tube and the tag attached to each sample is noted in the output data.  There is also a note about whether this step was performed successfully or not in the "status" field, which may be "passed" or "failed".
+In our simulated preparation step, each sample is processed to attach a genetic tag ("actg", "acac", etc.) to the samples in the tube and the tag attached to each sample is noted in the output data.  (There is no way to know ahead of time which tag is attached to which sample.)  There is also a note about whether this step was performed successfully or not in the "status" field, which may be "passed" or "failed".
 
 The prepared samples are then ready to be processed in the "analyzer" instrument.  The output samples from the first instrument are loaded into the second instrument and the known data about each of the samples is sent to the analyzer instrument.
 
@@ -49,7 +49,7 @@ In this example we are asking the AI agent to plan for the management of data ac
 
 The workflow specification instructs that only the "passing" samples are processed by the analysis step.
 
-We have also defined the tools representing the instruments with an interface with a rich type definition.  Each of the instruments accepts an array-of-structure and produces an array-of-structures.  An example of the MCP definition of "preparation_tool" appears below.
+We have also defined the tools representing the instruments with an interface with a rich type definition.  Each of the instruments accepts an array-of-structures and produces an array-of-structures.  An example of the MCP definition of "preparation_tool" appears below.
 
 Some notable features of the JSON Schema definition are:
 
@@ -130,7 +130,7 @@ The assistant's goal is to manage the data associated with a set of samples.  Th
 
 ### A smaller tool test for smaller LLMs
 
-The complexity of the first prompt exceeds what smaller LLMs can perform.  A second prompt aims to merely exercies the LLMs ability to format and process a tool call and transform tabular data into the array-of-structures required by the tools.
+The complexity of the first prompt exceeds what smaller LLMs can perform.  A second prompt aims to merely exercise the LLM's ability to format and process a tool call and transform tabular data into the array-of-structures required by the tools.
 
 (The prompt shown below has turned out to be useful for examining the correctness of tool interfaces with rich types.)
 
@@ -163,6 +163,7 @@ Make sure you have `uv` installed.
     $ cd mcp-server-lims
     $ uv init
     $ uv venv
+    $ . .venv/bin/activate
     $ uv sync
 
 
